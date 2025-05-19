@@ -1,13 +1,17 @@
 {
-  "name": "lf-uppsala",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@omegapoint-ab/lf-uppsala-interest-free-days",
+  "version": "1.0.0",
   "type": "module",
+  "module": "dist/index.js",
+  "license": "UNLICENSED",
+  "description": "Calculating number of interest free days with current mortgage and savings in LF Uppsala",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alizadeh-m/lf-uppsala-interest-free-days"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "build": "rimraf dist && tsc --build"
   },
   "dependencies": {
     "react": "^19.1.0",
@@ -15,14 +19,11 @@
     "typescript": "^5.8.3"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.0",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@vitejs/plugin-react": "^4.4.1",
-    "eslint": "^9.25.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
+    "rimraf": "^6.0.1",
     "vite": "^6.3.5"
   }
 }
