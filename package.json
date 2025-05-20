@@ -1,13 +1,13 @@
 {
   "name": "@omegapoint-ab/lf-uppsala-interest-free-days",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "module": "dist/index.js",
   "license": "UNLICENSED",
   "description": "Calculating number of interest free days with current mortgage and savings in LF Uppsala",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alizadeh-m/lf-uppsala-interest-free-days"
+    "url": "https://github.com/Omegapoint/lf-uppsala-interest-free-days"
   },
   "scripts": {
     "dev": "vite",
