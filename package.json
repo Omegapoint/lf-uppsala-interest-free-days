@@ -1,5 +1,5 @@
 {
-  "name": "@omegapoint-ab/lf-uppsala-interest-free-days",
+  "name": "@omegapoint/lf-uppsala-interest-free-days",
   "version": "1.0.1",
   "type": "module",
   "module": "dist/index.js",
@@ -14,6 +14,9 @@
     "build": "rimraf dist && tsc --build"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.1.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
