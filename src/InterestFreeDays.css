@@ -1,5 +1,10 @@
 #root {}
 
+#body {
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
 .Wrapper {
   background: #005aa0;
   width: 100%;

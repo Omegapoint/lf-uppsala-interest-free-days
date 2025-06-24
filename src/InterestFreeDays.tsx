@@ -1,11 +1,11 @@
-import './App.css'
 import React, { useMemo, useState } from 'react';
-import { TextField } from '@mui/material';
+import { InputAdornment, TextField } from '@mui/material';
 import { I18n, isNumberOrEmpty, translations } from './InterestFreeDays.helper';
+import './InterestFreeDays.css';
 
 interface Props {
   /** Defaults to 2 */
-  periodInYear?: number; // TODO[ma] 2025-05-23 rename
+  periodInYear?: number;
   /** Defaults to 365 */
   mortgagePeriodInDays?: number;
   /** Translation values */
@@ -19,7 +19,6 @@ const InterestFreeDays = (props: Props) => {
   const [savings, setSavings] = useState<string>('');
   const [mortgage, setMortgage] = useState<string>('');
 
-  // Sparande att flytta till LF Uppsala (i kronor) / Bolån (i kronor) * 365 / 2 = Antal räntefri dagar (avrunda till heltal)
   const interestFreeDays = useMemo(() => {
     if (savings === '' || mortgage === '') {
       return 0;
@@ -45,6 +44,11 @@ const InterestFreeDays = (props: Props) => {
             }
           }}
           className='Input'
+          slotProps={{
+            input: {
+              endAdornment: <InputAdornment variant="filled" position="end">{labels.kr}</InputAdornment>,
+            },
+          }}
         />
       </div>
       <div className='InputWrapper'>
@@ -60,6 +64,11 @@ const InterestFreeDays = (props: Props) => {
             if (isNumberOrEmpty(event.target.value)) {
               setSavings(event.target.value);
             }
+          }}
+          slotProps={{
+            input: {
+              endAdornment: <InputAdornment variant="filled" position="end">{labels.kr}</InputAdornment>,
+            },
           }}
         />
       </div>

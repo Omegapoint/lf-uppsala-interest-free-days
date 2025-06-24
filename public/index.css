@@ -1,0 +1,33 @@
+@font-face {
+  font-family: 'intro-cond-regular';
+  src: local('intro-cond-regular'), url(fonts/intro-cond-regular.woff) format('woff');
+  src: local('intro-cond-regular'), url(fonts/intro-cond-regular.woff2) format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'intro-cond-regular-italic';
+  src: local('intro-cond-regular-italic'), url(fonts/intro-cond-regular-italic.woff) format('woff');
+  src: local('intro-cond-regular-italic'), url(fonts/intro-cond-regular-italic.woff2) format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'intro-cond-bold';
+  src: local('intro-cond-bold'), url(fonts/intro-cond-bold.woff) format('woff');
+  src: local('intro-cond-bold'), url(fonts/intro-cond-bold.woff2) format('woff2');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'intro-cond-bold-italic';
+  src: local('intro-cond-bold-italic'), url(fonts/intro-cond-bold-italic.woff) format('woff');
+  src: local('intro-cond-bold-italic'), url(fonts/intro-cond-bold-italic.woff2) format('woff2');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'lf-rubrik';
+  src: local('lf-rubrik'), url(fonts/lf-rubrik.woff) format('woff');
+  src: local('lf-rubrik'), url(fonts/lf-rubrik.woff2) format('woff2');
+}
