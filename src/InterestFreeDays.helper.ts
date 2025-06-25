@@ -16,4 +16,20 @@ export const translations: I18n = {
   kr: 'kr',
 }
 
-export const isNumberOrEmpty = (value: string) => /^\d+$/.test(value) || value === '';
+export interface InputState {
+  savings: string;
+  mortgage: string;
+}
+
+export enum InputType {
+  SAVINGS = 'savings',
+  MORTGAGE = 'mortgage',
+}
+
+const MAX_INPUT_LENGTH = 9;
+const isLessThanMaximumLength = (value: string) => value.length <= MAX_INPUT_LENGTH;
+const isNumberOrEmpty = (value: string) => /^\d+$/.test(value) || value === '';
+
+export const trimLeadingZeros = (value: string) => value.replace(/^0+(?!$)/, '');
+export const trimSpacesAndZeros = (value: string) => value.replace(/^[0\s]+/, '').replace(/\s+/g, '');
+export const isValidInterestFreeDays = (value: string) => isNumberOrEmpty(value) && isLessThanMaximumLength(value);

@@ -1,78 +1,109 @@
 import React, { useMemo, useState } from 'react';
 import { InputAdornment, TextField } from '@mui/material';
-import { I18n, isNumberOrEmpty, translations } from './InterestFreeDays.helper';
+import {
+  I18n,
+  InputState,
+  InputType,
+  isValidInterestFreeDays,
+  translations,
+  trimLeadingZeros, trimSpacesAndZeros
+} from './InterestFreeDays.helper';
 import './InterestFreeDays.css';
 
 interface Props {
-  /** Defaults to 2 */
-  periodInYear?: number;
   /** Defaults to 365 */
   mortgagePeriodInDays?: number;
+  /** Defaults to 365 */
+  maximumInterestFreeDays?: number;
+  /** Defaults to 2 */
+  periodInYear?: number;
   /** Translation values */
   i18n?: I18n;
 }
 
 const InterestFreeDays = (props: Props) => {
-  const { periodInYear = 2, mortgagePeriodInDays = 365, i18n } = props;
+  const { periodInYear = 2, mortgagePeriodInDays = 365, maximumInterestFreeDays = 365, i18n } = props;
   const labels = { ...translations, ...i18n };
 
-  const [savings, setSavings] = useState<string>('');
-  const [mortgage, setMortgage] = useState<string>('');
+  const [inputs, setInputs] = useState<InputState>({ savings: '', mortgage: '' });
 
   const interestFreeDays = useMemo(() => {
+    const { savings, mortgage } = inputs;
     if (savings === '' || mortgage === '') {
       return 0;
     }
 
-    const days = Number(savings) / Number(mortgage) * mortgagePeriodInDays / periodInYear;
-    return Math.round(days);
-  }, [mortgage, savings]);
+    const savingsTrimmed = trimSpacesAndZeros(savings);
+    const mortgageTrimmed = trimSpacesAndZeros(mortgage);
+    const days = Number(savingsTrimmed) / Number(mortgageTrimmed) * mortgagePeriodInDays / periodInYear;
+    if (days > maximumInterestFreeDays) {
+      return maximumInterestFreeDays;
+    } else {
+      return Math.round(days);
+    }
+
+  }, [inputs.savings, inputs.mortgage, mortgagePeriodInDays, periodInYear, maximumInterestFreeDays]);
+
+  const formatInput = (type: InputType, event) => {
+    event.preventDefault();
+    const inputValue = event.target.value.toString().replace(/\s+/g, '');
+    const trimmedInputValue = trimLeadingZeros(inputValue);
+    const inputFormatted = trimmedInputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
+    setInputs((prevState) => ({
+        ...prevState,
+        [type]: inputFormatted,
+      })
+    );
+  }
+
+  const clearFormat = (type: InputType, event) => {
+    event.preventDefault();
+    const inputValue = event.target.value.toString();
+    const inputFormattedCleared = trimSpacesAndZeros(inputValue);
+    setInputs((prevState) => ({
+        ...prevState,
+        [type]: inputFormattedCleared
+      })
+    );
+  }
+
+  const input = (id: string, inputType: InputType) => {
+    return <TextField
+      id={id}
+      className='Input'
+      variant='standard'
+      required={true}
+      slotProps={{
+        input: {
+          endAdornment:
+            <InputAdornment variant='filled' position='end' className='InputAdornment'>{labels.kr}</InputAdornment>
+        }
+      }}
+      value={inputs[inputType]}
+      onBlur={(e) => formatInput(inputType, e)}
+      onFocus={(e) => clearFormat(inputType, e)}
+      onChange={(event) => {
+        event.preventDefault();
+        const value = event.target.value.trim().toString();
+        if (isValidInterestFreeDays(value)) {
+          setInputs((prevState) => ({ ...prevState, [inputType]: value }));
+        }
+      }}
+    />
+  }
 
   return (
     <form className='Wrapper'>
       <div className='InputWrapper'>
-        <TextField
-          id="mortgage"
-          label={labels.mortgage}
-          variant="filled"
-          required={true}
-          value={mortgage}
-          onChange={(event) => {
-            event.preventDefault();
-            if (isNumberOrEmpty(event.target.value)) {
-              setMortgage(event.target.value);
-            }
-          }}
-          className='Input'
-          slotProps={{
-            input: {
-              endAdornment: <InputAdornment variant="filled" position="end">{labels.kr}</InputAdornment>,
-            },
-          }}
-        />
+        <label htmlFor='mortgage' className='Label'>{labels.mortgage}</label>
+        {input('mortgage', InputType.MORTGAGE)}
       </div>
       <div className='InputWrapper'>
-        <TextField
-          id="savings"
-          className='Input'
-          label={labels.savings}
-          variant="filled"
-          required={true}
-          value={savings}
-          onChange={(event) => {
-            event.preventDefault();
-            if (isNumberOrEmpty(event.target.value)) {
-              setSavings(event.target.value);
-            }
-          }}
-          slotProps={{
-            input: {
-              endAdornment: <InputAdornment variant="filled" position="end">{labels.kr}</InputAdornment>,
-            },
-          }}
-        />
+        <label htmlFor='savings' className='Label'>{labels.savings}</label>
+        {input('savings', InputType.SAVINGS)}
       </div>
-      {savings.length > 0 && mortgage.length > 0 &&
+      {inputs.savings.length > 0 && inputs.mortgage.length > 0 &&
         <div>
           <label htmlFor='interest-free-days' className='Label'>{labels.interestFreeDays}</label>
           <p id='interest-free-days' className='InterestFreeDays'>
