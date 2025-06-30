@@ -77,7 +77,13 @@ const InterestFreeDays = (props: Props) => {
       slotProps={{
         input: {
           endAdornment:
-            <InputAdornment variant='filled' position='end' className='InputAdornment'>{labels.kr}</InputAdornment>
+            <InputAdornment
+              aria-hidden="true"
+              variant='filled' position='end'
+              className='InputAdornment'
+            >
+              {labels.kr}
+            </InputAdornment>
         }
       }}
       value={inputs[inputType]}
@@ -96,16 +102,17 @@ const InterestFreeDays = (props: Props) => {
   return (
     <form className='Wrapper'>
       <div className='InputWrapper'>
-        <label htmlFor='mortgage' className='Label'>{labels.mortgage}</label>
+        <label htmlFor='mortgage' className='Label' aria-label={labels.mortgageInSek}>{labels.mortgage}
+        </label>
         {input('mortgage', InputType.MORTGAGE)}
       </div>
       <div className='InputWrapper'>
-        <label htmlFor='savings' className='Label'>{labels.savings}</label>
+        <label htmlFor='savings' className='Label' aria-label={labels.savingsInSek}>{labels.savings}</label>
         {input('savings', InputType.SAVINGS)}
       </div>
       {inputs.savings.length > 0 && inputs.mortgage.length > 0 &&
         <div>
-          <label htmlFor='interest-free-days' className='Label'>{labels.interestFreeDays}</label>
+          <div className='Label'>{labels.interestFreeDays}</div>
           <p id='interest-free-days' className='InterestFreeDays'>
             {interestFreeDays === 1 ? labels.day(interestFreeDays) : labels.days(interestFreeDays)}
           </p>
