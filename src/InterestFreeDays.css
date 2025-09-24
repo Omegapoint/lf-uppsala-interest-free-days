@@ -7,8 +7,7 @@
 }
 
 .Wrapper {
-  background: #005aa0;
-  width: 100%;
+  background-color: #fff;
   min-height: 250px;
   display: flex;
   flex-direction: column;
@@ -45,14 +44,14 @@
 }
 
 .Label {
-  color: white;
+  color:black;
   font-size: 20px;
   margin-bottom: 8px;
   font-weight: bold;
 }
 
 .InterestFreeDays {
-  color: white;
+  color: black;
   font-size: 20px;
   font-weight: bold;
   margin: 6px 0 8px;
