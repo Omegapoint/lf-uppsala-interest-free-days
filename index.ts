@@ -1,1 +1,1 @@
-import InterestFreeDays from './src/InterestFreeDays';
+export { InterestFreeDays } from './src/InterestFreeDays';

@@ -123,3 +123,4 @@ const InterestFreeDays = (props: Props) => {
 }
 
 export default InterestFreeDays
+export { InterestFreeDays };
